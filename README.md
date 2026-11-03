@@ -11,6 +11,7 @@ without running anything.
 |---|---|---|
 | 1 | Random search, neighbourhoods and hill climbing; compiler flags and n-queens; restarts, tabu search and simulated annealing | [Random and Local Search – Part 1](Random%20and%20Local%20Search%20-%20Part%201.ipynb) ([rendered](rendered/Random%20and%20Local%20Search%20-%20Part%201.md)) |
 | 2 | Comparing search algorithms: statistical tests, effect sizes, multiple comparisons and run-length distributions; measuring fitness landscapes; from local to global search | [Random and Local Search – Part 2](Random%20and%20Local%20Search%20-%20Part%202.ipynb) ([rendered](rendered/Random%20and%20Local%20Search%20-%20Part%202.md)) |
+| 3 | (1+1) search, population GA, plus/comma survival; module clustering | [Evolutionary Search – Part 1](Evolutionary%20Search%20-%20Part%201.ipynb) ([rendered](rendered/Evolutionary%20Search%20-%20Part%201.md)) |
 
 ## Running the notebooks
 

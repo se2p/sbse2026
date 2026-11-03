@@ -156,6 +156,8 @@ def pair_entropy(symbols, same=False):
 
 
 def holm(pvalues):
+    if any(not math.isfinite(p) or not 0 <= p <= 1 for p in pvalues):
+        raise ValueError("p-values must be finite numbers between 0 and 1")
     adjusted, previous = [0.0] * len(pvalues), 0.0
     for rank, (index, p) in enumerate(sorted(enumerate(pvalues), key=lambda x: x[1])):
         previous = max(previous, (len(pvalues) - rank) * p)
@@ -185,7 +187,9 @@ def compare(samples, pairs=None, higher_is_better=True, resamples=2000, seed=0):
     for first, second in pairs:
         x = [sign * v for v in samples[first]]
         y = [sign * v for v in samples[second]]
-        p = mannwhitneyu(x, y, alternative="two-sided").pvalue
+        # An entirely tied sample contains no evidence of a difference. Some
+        # SciPy versions return NaN here because the tie-corrected variance is 0.
+        p = 1.0 if len(set(x + y)) == 1 else mannwhitneyu(x, y, alternative="two-sided").pvalue
         boot = sorted(a12(rng.choices(x, k=len(x)), rng.choices(y, k=len(y))) for _ in range(resamples))
         rows.append({"first": first, "second": second, "n": (len(x), len(y)), "p": p,
                      "A12": a12(x, y), "A12_low": boot[int(0.025 * resamples)],
